@@ -1,7 +1,13 @@
 <template>
   <div class="bg-yellow-600 rounded-lg shadow-lg flex flex-col gap-8">
     <ul>
-      <li v-for="item in taik" :key="item.id">{{ item.title }}</li>
+      <li
+        v-for="item in talkList"
+        :key="item.id"
+        class="text-lg text-white px-5 text-left"
+      >
+        {{ item.title }}
+      </li>
     </ul>
     <button
       @click="getTalk"
@@ -13,36 +19,11 @@
 </template>
 
 <script lang="ts" setup>
-const getTalk = async () => {
-  const {
-    data: { content: title },
-  } = await axios.get("https://api.uomg.com/api/rand.qinghua?format=json");
-  const obj = {
-    id: nanoid(),
-    title,
-  };
-  console.log(obj);
-};
+import { useTalkStore } from "@/store";
 
-import { reactive } from "vue";
-
-import axios from "axios";
-import { nanoid } from "nanoid";
-
-const taik = reactive([
-  {
-    id: 1,
-    title: "什么东西",
-  },
-  {
-    id: 2,
-    title: "东西",
-  },
-  {
-    id: 3,
-    title: "什么",
-  },
-]);
+const { talkList, getTalk } = useTalkStore();
 </script>
 
-<style scoped></style>
+<style scoped>
+/* 如果有必要，可以在这里添加CSS */
+</style>
